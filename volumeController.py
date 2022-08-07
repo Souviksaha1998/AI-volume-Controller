@@ -21,7 +21,7 @@ while True:
         cx3 , cy3 = handpos[12][1] , handpos[12][2]
         cx , cy = (cx1+cx2)//2 , (cy1+cy2)//2
         length = math.hypot(cx2-cx1,cy2-cy1)
-        distance = math.hypot(cx3-cx2,cy3-cy2)
+        distance = math.hypot(cx3-cx1,cy3-cy1)
         # print(int(distance))
         convert = np.interp(length,[10,160],[0,100])
         # print(int(convert))
@@ -36,12 +36,12 @@ while True:
             call(["amixer", "-D", "pulse", "sset", "Master", str(int(convert))+"%"])
             cv2.putText(frame,f'VOLUME :{int(convert)}%',(cx+10,cy),cv2.FONT_HERSHEY_PLAIN,2,(0,255,0),2)
 
-        if length>200:
-            cv2.circle(frame,(cx,cy),10,(255,255,255),-1)
-            cv2.putText(frame,'MAX DISTANCE',(cx1,cy1),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1)
+            if length>100:
+                cv2.circle(frame,(cx,cy),10,(255,255,255),-1)
+                cv2.putText(frame,'MAX DISTANCE',(cx1,cy1),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1)
             
-        elif length<15:
-            cv2.circle(frame,(cx,cy),10,(0,255,255),-1)
+            elif length<15:
+                cv2.circle(frame,(cx,cy),10,(0,255,255),-1)
            
 
     ctime = time.time()
